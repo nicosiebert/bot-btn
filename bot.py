@@ -39,7 +39,6 @@ def BotonesDinamicos(update, context):
 def seleccion(update, context:CallbackContext):
     #Guardamos la seleccion en la variable texto
     text = update.message.text
-    context.user_data['choice'] = text
     #vamos usar "if" para definir que van a hacer los botones
 
     if text == "Numeros":
@@ -91,9 +90,11 @@ def Volver_boton(update):
 # Definimos la funcion del boton volver que nos va a regresar al inicio
 def VolverFuncion(update, context):
     BotonesDinamicos(update, context)
+    
 def SourceCode(update, context):
     update.message.reply_text("Mi codigo fuente esta alojado en: ")
     update.message.reply_text("https://github.com/nicosiebert2/bot-btn/blob/main/bot.py")
+    
 #para enlazar el token y añadir comandos
 #si va a probar el cogigo borren la variable TUTOKEN y vambien TUTOKEN por su token
 TUTOKEN = os.getenv("TUTOKEN")#borrar
