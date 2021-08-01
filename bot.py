@@ -69,7 +69,7 @@ def VolverFuncion(update, context):
     start(update, context)
 
 #para enlazar el token y añadir comandos
-updater = Updater("TUTOKEN")
+updater = Updater("1892750943:AAE42VJM4KBWZUVBgyRfIEdGsjO94efNHAw")
 
 #Comandos|Controladores|Handlers
 dp = updater.dispatcher
