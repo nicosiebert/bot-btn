@@ -97,7 +97,7 @@ def SourceCode(update):
 #para enlazar el token y añadir comandos
 #si va a probar el cogigo borren la variable TUTOKEN y vambien TUTOKEN por su token
 TUTOKEN = os.getenv("TUTOKEN")#borrar
-updater = Updater([f"{TUTOKEN}")#añade tu token  borrando f{}
+updater = Updater(f"{TUTOKEN}")#añade tu token  borrando f{}
 
 #Comandos|Controladores|Handlers
 dp = updater.dispatcher
