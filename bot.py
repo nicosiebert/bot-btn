@@ -22,8 +22,13 @@ respuesta_teclado = [['Numeros', 'Colores'],['Paises']]
 markup = ReplyKeyboardMarkup(respuesta_teclado, one_time_keyboard = True, resize_keyboard= True)
 
 
-#Funcion Start
+#Funcion Start btn dimanicos
 def start(update, context):
+    nombre = update.effective_user['first_name']
+    update.message.reply_text(f"Hola {nombre}👋\n Ingrese los siguientes comandos para ver las demostraciones /botonesdinamicos")
+    update.message.reply_text("😊")
+
+def BotonesDinamicos(update, context):
     update.message.reply_text(
         'seleccione un boton',
         reply_markup = markup
@@ -38,23 +43,42 @@ def seleccion(update, context:CallbackContext):
 
     if text == "Numeros":
         Numeros(update)
-        Volver_boton(update)
 
     if text == "Colores":
-        Colores(update)
-        Volver_boton(update)
+        Colores(update, context)
 
     if text == "Paises":
-        update.message.reply_text("Esté boton no tiene ninguna funcion")
+        update.message.reply_text(f"{update.effective_user['first_name']} Esta funcion aún no está disponible 😔")
         Volver_boton(update)
 
 #definimos la funciones de los botones "Numeros, Colores y Paises"
 def Numeros(update):
-    update.message.reply_text("La funcion de este boton no esta definida")
+    update.message.reply_text("Seleccione un numero")
+    reply_numeros = [[1,2,3,4,5,6], [7,8,9,10, 11 ,12,], [ 13, 14, 15, 16, 17, 18], ['Volver']]
+    markup_numeros = ReplyKeyboardMarkup(reply_numeros, one_time_keyboard = True, resize_keyboard=True)
+    update.message.reply_text(
+        "seleccione un numero",
+        reply_markup = markup_numeros
+    )
+def NumerosFuncion(update, context):
+    num_seleccionado = update.message.text
+    print(f"El usuario {update.effective_user['first_name']} ha seleccionado el numero {num_seleccionado}")
+    update.message.reply_text(f'Ha seleccionado el numero {num_seleccionado}')
+    Volver_boton(update)
     
-def Colores(update):
-    update.message.reply_text("La funcion de este boton no esta definida")
-    
+def Colores(update,context):
+    reply_color = [['Rojo','Verde','Negro'], ['Azul', 'Amarillo', 'Blanco'],['Volver']]
+    markup_colors = ReplyKeyboardMarkup(reply_color, one_time_keyboard = True, resize_keyboard=True)
+    update.message.reply_text(
+        "seleccione un color",
+        reply_markup = markup_colors
+    )
+def ColoresFuncion(update,context):
+    color_seleccionado = update.message.text
+    print(f"El usuario {update.effective_user['first_name']} ha seleccionado el color", color_seleccionado)
+    update.message.reply_text(f'Ha seleccionado el color {color_seleccionado}')
+    Volver_boton(update)
+
 def Paises():
     pass
 
@@ -66,7 +90,7 @@ def Volver_boton(update):
 
 # Definimos la funcion del boton volver que nos va a regresar al inicio
 def VolverFuncion(update, context):
-    start(update, context)
+    BotonesDinamicos(update, context)
 
 #para enlazar el token y añadir comandos
 updater = Updater("1892750943:AAE42VJM4KBWZUVBgyRfIEdGsjO94efNHAw")
@@ -74,6 +98,8 @@ updater = Updater("1892750943:AAE42VJM4KBWZUVBgyRfIEdGsjO94efNHAw")
 #Comandos|Controladores|Handlers
 dp = updater.dispatcher
 dp.add_handler(CommandHandler("start", start))
+dp.add_handler(CommandHandler("botonesdinamicos", BotonesDinamicos))
+
 
 #añadimos un MessageHandler para controlar la funcion botones
 dp.add_handler(MessageHandler(
@@ -83,6 +109,8 @@ dp.add_handler(MessageHandler(
 )
 #un MessageHandler del boton Volver
 dp.add_handler(MessageHandler(Filters.regex('^Volver$'), VolverFuncion))
+dp.add_handler(MessageHandler(Filters.regex('^Rojo|Verde|Negro|Azul|Amarillo|Blanco|Volver$'), ColoresFuncion))
+dp.add_handler(MessageHandler(Filters.regex('^1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16$'), NumerosFuncion))
 
 #Mantener y poder terminar la sesion
 updater.start_polling()
