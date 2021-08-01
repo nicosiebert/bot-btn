@@ -2,10 +2,11 @@
 #  https://python-telegram-bot.readthedocs.io
 #  https://python-telegram-bot.readthedocs.io/en/stable/telegram.replykeyboardmarkup.html
 #  https://python-telegram-bot.readthedocs.io/en/stable/telegram.keyboardbutton.html
-#  https://github.com/nicosiebert2 siganme para mas guias
+#  https://github.com/nicosiebert2 más repositorios
 
 
 #Librerias
+import os #variables de entorno
 import logging # Login
 from telegram import KeyboardButton, ReplyKeyboardMarkup #Teclado
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext #Token y comandos
@@ -15,14 +16,14 @@ logging.basicConfig(level = logging.INFO, format = "%(asctime)s - %(name)s - %(l
 
 logger = logging.getLogger()
 
-    #"""vamos a definir el teclado start en la variable respuesta_teclado"""
+    #"""vamos a definir el teclado que va a aparecer en BotonesDinanicos en la variable respuesta_teclado como"""
 respuesta_teclado = [['Numeros', 'Colores'],['Paises']]
 
-    #"""ahora definimos el reply_markup en la variable markup"""
+    #"""ahora definimos el reply_markup en la variable markup y a la vez llamamos la variable que anteriormente definimos respuesta_teclado"""
 markup = ReplyKeyboardMarkup(respuesta_teclado, one_time_keyboard = True, resize_keyboard= True)
 
 
-#Funcion Start btn dimanicos
+#Funcion Start || btndimanicos
 def start(update, context):
     nombre = update.effective_user['first_name']
     update.message.reply_text(f"Hola {nombre}👋\n Ingrese los siguientes comandos para ver las demostraciones /botonesdinamicos")
@@ -34,7 +35,7 @@ def BotonesDinamicos(update, context):
         reply_markup = markup
     )
 
-#Funcion de los botones start
+#Funcion de los BotonesDinamicos
 def seleccion(update, context:CallbackContext):
     #Guardamos la seleccion en la variable texto
     text = update.message.text
@@ -53,7 +54,6 @@ def seleccion(update, context:CallbackContext):
 
 #definimos la funciones de los botones "Numeros, Colores y Paises"
 def Numeros(update):
-    update.message.reply_text("Seleccione un numero")
     reply_numeros = [[1,2,3,4,5,6], [7,8,9,10, 11 ,12,], [ 13, 14, 15, 16, 17, 18], ['Volver']]
     markup_numeros = ReplyKeyboardMarkup(reply_numeros, one_time_keyboard = True, resize_keyboard=True)
     update.message.reply_text(
@@ -82,7 +82,7 @@ def ColoresFuncion(update,context):
 def Paises():
     pass
 
-#definimos el BotonVolver
+#definimos el Boton para Volver
 def Volver_boton(update):
     reply_volver =[["Volver"]]
     markup_volver= ReplyKeyboardMarkup(reply_volver, one_time_keyboard=True, resize_keyboard=True)
@@ -93,7 +93,8 @@ def VolverFuncion(update, context):
     BotonesDinamicos(update, context)
 
 #para enlazar el token y añadir comandos
-updater = Updater("1892750943:AAE42VJM4KBWZUVBgyRfIEdGsjO94efNHAw")
+TUTOKEN = os.get.environ("TUTOKEN")
+updater = Updater("TUTOKEN")
 
 #Comandos|Controladores|Handlers
 dp = updater.dispatcher
@@ -107,7 +108,7 @@ dp.add_handler(MessageHandler(
             Filters.regex('^Numeros|Colores|Paises$'), seleccion
             )
 )
-#un MessageHandler del boton Volver
+#un MessageHandler del boton Volver|Colores|Numeros
 dp.add_handler(MessageHandler(Filters.regex('^Volver$'), VolverFuncion))
 dp.add_handler(MessageHandler(Filters.regex('^Rojo|Verde|Negro|Azul|Amarillo|Blanco|Volver$'), ColoresFuncion))
 dp.add_handler(MessageHandler(Filters.regex('^1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16$'), NumerosFuncion))
