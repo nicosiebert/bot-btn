@@ -93,10 +93,11 @@ def VolverFuncion(update, context):
     BotonesDinamicos(update, context)
 def SourceCode(update):
     update.message.reply_text("Mi codigo fuente esta alojado en: ")
-    update.message.reply_text("https://github.com/nicosiebert2/bot-btn/edit/main/bot.py")
+    update.message.reply_text("https://github.com/nicosiebert2/bot-btn/main/bot.py")
 #para enlazar el token y añadir comandos
-TUTOKEN = os.get.env("TUTOKEN")
-updater = Updater("TUTOKEN")
+#si va a probar el cogigo borren la variable TUTOKEN y vambien TUTOKEN por su token
+TUTOKEN = os.getenv("TUTOKEN")#borrar
+updater = Updater("TUTOKEN")#añade tu token
 
 #Comandos|Controladores|Handlers
 dp = updater.dispatcher
