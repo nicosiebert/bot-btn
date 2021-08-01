@@ -91,15 +91,18 @@ def Volver_boton(update):
 # Definimos la funcion del boton volver que nos va a regresar al inicio
 def VolverFuncion(update, context):
     BotonesDinamicos(update, context)
-
+def SourceCode(update):
+    update.message.reply_text("Mi codigo fuente esta alojado en: ")
+    update.message.reply_text("https://github.com/nicosiebert2/bot-btn/edit/main/bot.py")
 #para enlazar el token y añadir comandos
-TUTOKEN = os.get.environ("TUTOKEN")
+TUTOKEN = os.get.env("TUTOKEN")
 updater = Updater("TUTOKEN")
 
 #Comandos|Controladores|Handlers
 dp = updater.dispatcher
 dp.add_handler(CommandHandler("start", start))
 dp.add_handler(CommandHandler("botonesdinamicos", BotonesDinamicos))
+dp.add_handler(CommandHandler("sourcecode", SourceCode))
 
 
 #añadimos un MessageHandler para controlar la funcion botones
